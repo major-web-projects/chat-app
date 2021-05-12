@@ -1,0 +1,22 @@
+extends ../layouts/authLayout.pug
+
+block content
+    main.form-signin.container
+        form
+            h1.h3.mb-3.fw-normal Login
+            .form-group 
+                label(for='email') Email address
+                input#email.form-control(type='email', placeholder='name@example.com')
+            
+            .form-group
+                label(for='password') Password
+                input#password.form-control(type='password', placeholder='Password')
+         
+            .checkbox.mb-3
+                label
+                    input(type='checkbox', value='remember-me')
+                    |  Remember me
+            button.w-100.btn.btn-lg.btn-primary(type='submit') Login
+        
+
+        a(href="/auth/register") Don't have a account, please register 

@@ -1,0 +1,34 @@
+extends ../layouts/authLayout.pug
+
+block content
+    main.form-signin.container
+        form
+            h1.h3.mb-3.fw-normal Register
+            .form-group 
+                label(for='firstName') First Name
+                input#firstName.form-control(type="text", placeholder="First name")
+            .form-group 
+                label(for='lastName') Last Name
+                input#lastName.form-control(type="text", placeholder="Last name")
+            .form-group 
+                label(for='userName') Username
+                input#userName.form-control(type="text", placeholder="Username")
+            .form-group 
+                label(for='email') Email address
+                input#email.form-control(type='email', placeholder='name@example.com')
+            
+            .form-group
+                label(for='password') Password
+                input#password.form-control(type='password', placeholder='Password')
+            .form-group
+                label(for='passwordConfirmation') Password Confirmation
+                input#passwordConfirmation.form-control(type='password', placeholder='Password Confirmation')
+                    
+            .checkbox.mb-3
+                label
+                    input(type='checkbox', value='remember-me')
+                    |  Remember me
+            button.w-100.btn.btn-lg.btn-primary(type='submit') Register
+        
+
+        a(href="/auth/login") Have a account, please Login 
