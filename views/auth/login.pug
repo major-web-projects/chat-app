@@ -2,15 +2,17 @@ extends ../layouts/authLayout.pug
 
 block content
     main.form-signin.container
-        form
+        if errorMessage
+            .alert.alert-danger #{errorMessage}
+        form#loginForm(method="post")
             h1.h3.mb-3.fw-normal Login
             .form-group 
-                label(for='email') Email address
-                input#email.form-control(type='email', placeholder='name@example.com')
+                label(for='email') Email or Username
+                input#email.form-control(type='text' name="emailOrUserName" placeholder='Email or Username' value=emailOrUserName)
             
             .form-group
                 label(for='password') Password
-                input#password.form-control(type='password', placeholder='Password')
+                input#password.form-control(type='password' name="password" placeholder='Password')
          
             .checkbox.mb-3
                 label
