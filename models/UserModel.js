@@ -40,6 +40,14 @@ const UserSchema = new Schema(
       type: String,
       select: false,
     },
+
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

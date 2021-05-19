@@ -104,4 +104,13 @@ router.post("/register", async (req, res, next) => {
   return res.status(200).render("auth/register", payload);
 });
 
+// logout
+router.get("/logout", (req, res, next) => {
+  if (req.session.user) {
+    req.session.destroy(() => {
+      res.redirect("/auth/login");
+    });
+  }
+});
+
 export default router;

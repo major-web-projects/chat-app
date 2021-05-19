@@ -1,3 +1,5 @@
+include ../mixins/mixins
+
 doctype html
 html(lang="en")
     head
@@ -5,9 +7,63 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', integrity='sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l', crossorigin='anonymous')
+        link(rel="stylesheet", href="/css/style.css")
         title #{title}
     body 
-        block content
+        .wrapper 
+            .row 
+                nav.col-1.vh-100
+                    .d-flex.flex-column.bg-light.vh-100
+                        .d-block.p-3.link-dark.text-decoration-none.text-center(href='/')
+                            i.fas.fa-hand-middle-finger.fa-2x(width='40', height='32')
+                           
+                        ul.nav.nav-pills.nav-flush.flex-column.mb-auto.text-center
+                            li.nav-item
+                                a.nav-link.py-3.border-bottom(href='/', title='Home')
+                                    i.fas.fa-home(width='40', height='32')
+                            li.nav-item
+                                a.nav-link.active.py-3.border-bottom(href='/search', title='Search')
+                                    i.fas.fa-search(width='40', height='32')
+                            li.nav-item
+                                a.nav-link.py-3.border-bottom(href='/notifications' title='Notifications')
+                                    i.fas.fa-bell(width='40', height='32')
+                            li.nav-item
+                                a.nav-link.py-3.border-bottom(href='/messages', title='messages')
+                                    i.fas.fa-envelope(width='40', height='32')
+                            li.nav-item
+                                a.nav-link.py-3.border-bottom(href='/profile', title='Profile')
+                                    i.fas.fa-user(width='40', height='32')                                      
+                            li.nav-item
+                                a.nav-link.py-3.border-bottom(href='/auth/logout', title='Logout')
+                                    i.fas.fa-sign-out-alt(width='40', height='32')
 
-        script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
+                        //- .dropdown.border-top
+                        //-     a#dropdownUser3.d-flex.align-items-center.justify-content-center.p-3.link-dark.text-decoration-none.dropdown-toggle(href='#', data-bs-toggle='dropdown', aria-expanded='false')
+                        //-     img.rounded-circle(src='https://github.com/mdo.png', alt='mdo', width='24', height='24')
+                        //-     ul.dropdown-menu.text-small.shadow(aria-labelledby='dropdownUser3', style='')
+                        //-     li
+                        //-         a.dropdown-item(href='#') New project...
+                        //-     li
+                        //-         a.dropdown-item(href='#') Settings
+                        //-     li
+                        //-         a.dropdown-item(href='#') Profile
+                        //-     li
+                        //-         hr.dropdown-divider
+                        //-     li
+                        //-         a.dropdown-item(href='#') Sign out
+
+                section.col-11.col-md-8.col-lg-7
+                    .row
+                        .col-12
+                            .pageTitle
+                                h1.h3.ml-2 #{pageTitle}
+                            block content
+                section.d-none.d-md-block.col-md-2.col-lg-3
+                    span gfgf
+            .clearfix
+        
+        script(src='https://kit.fontawesome.com/d2c498730c.js', crossorigin='anonymous')
+        script(src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous')
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js', integrity='sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns', crossorigin='anonymous')
+        script(src="/js/scripts.js")
+        block scripts

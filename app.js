@@ -20,10 +20,14 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: "chat", resave: true, saveUninitialized: false }));
 
+// views
 app.use("/auth", routes.authRoutes);
 
+// /api/
+app.use("/api/posts", routes.postRoutes);
+
 app.get("/", authMiddleware.requireLogin, (req, res, next) => {
-  const payload = { title: "Chat App", userLoggedIn: req.session.user };
+  const payload = { pageTitle: "Home", userLoggedIn: req.session.user };
   res.status(200).render("home", payload);
 });
 

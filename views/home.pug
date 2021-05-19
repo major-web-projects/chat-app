@@ -1,5 +1,9 @@
 extends layouts/mainLayout.pug
 
 block content
-    h1 Chat with me, #{userLoggedIn.userName}
+    +createPostForm(userLoggedIn)
+    .clearfix
+    .postsContainer
 
+block scripts
+  script(src="/js/home.js")
