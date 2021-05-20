@@ -38,4 +38,42 @@ router.post("/", (req, res, next) => {
     });
 });
 
+router.put("/:postId/like", async (req, res, next) => {
+  const { postId } = req.params;
+  const user = req.session.user;
+  const userId = user._id;
+
+  if (!postId) {
+    return res.status(400).json({ error: "Please fill in content" });
+  }
+
+  try {
+    const isLiked = user.likes && user.likes.includes(postId);
+
+    const option = isLiked ? "$pull" : "$addToSet";
+
+    // user like post
+    req.session.user = await UserModel.findByIdAndUpdate(
+      userId,
+      {
+        [option]: { likes: postId },
+      },
+      { new: true }
+    );
+
+    // post liked by user
+    const post = await PostModel.findByIdAndUpdate(
+      postId,
+      {
+        [option]: { likes: userId },
+      },
+      { new: true }
+    ).populate("postedBy");
+
+    return res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ errorMessage: "Server Error" });
+  }
+});
+
 export default router;

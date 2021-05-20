@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import session from "express-session";
 
 // local imports
@@ -27,7 +27,11 @@ app.use("/auth", routes.authRoutes);
 app.use("/api/posts", routes.postRoutes);
 
 app.get("/", authMiddleware.requireLogin, (req, res, next) => {
-  const payload = { pageTitle: "Home", userLoggedIn: req.session.user };
+  const payload = {
+    pageTitle: "Home",
+    userLoggedIn: req.session.user,
+    userLoggedInJs: JSON.stringify(req.session.user),
+  };
   res.status(200).render("home", payload);
 });
 

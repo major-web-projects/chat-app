@@ -8,6 +8,7 @@ async function mongoConnect(mongoURI) {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     });
     console.log(`Mongodb connected successfully to :-> ${con.connection.host}`);
   } catch (error) {

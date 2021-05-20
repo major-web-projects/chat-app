@@ -36,14 +36,20 @@ $("#submitPostButton").click((event) => {
 
 function createPostHtml(postData) {
   const date = timeAgo(new Date(), new Date(postData.createdAt));
-  return `<div class="post">
+  const likeButtonActiveClass = postData.likes.includes(userLoggedIn._id)
+    ? "active"
+    : "";
+
+  return `<div class="post" data-id="${postData._id}">
       <div class="mainContentContainer">
         <div class="userImageContainer">
           <img src="${postData.postedBy.profilePic}" />
         </div>
         <div class="postContentContainer">
           <div class="header">
-            <a href="/profile/${postData.postedBy.userName}" class="displayName">
+            <a href="/profile/${
+              postData.postedBy.userName
+            }" class="displayName">
               ${postData.postedBy.firstName} ${postData.postedBy.lastName}
             </a>
             <span class="username">@${postData.postedBy.userName}</span>
@@ -58,15 +64,17 @@ function createPostHtml(postData) {
                 <i class="far fa-comment"></i>
               </button>
             </div>
-            <div class="postButtonContainer">
-              <button>
+            <div class="postButtonContainer green">
+              <button class="repost">
                 <i class="fas fa-share"></i>
               </button>
             </div>
-            <div class="postButtonContainer">
-              <button>
+            <div class="postButtonContainer red">
+              <button class="likeButton ${likeButtonActiveClass}">
                 <i class="far fa-thumbs-up"></i>
+                <span>${postData.likes.length || ""}</span>
               </button>
+              
             </div>
           </div>
         </div>        
@@ -74,6 +82,7 @@ function createPostHtml(postData) {
     </div>`;
 }
 
+// timestamps
 function timeAgo(current, previous) {
   var msPerMinute = 60 * 1000;
   var msPerHour = msPerMinute * 60;
@@ -97,4 +106,40 @@ function timeAgo(current, previous) {
   } else {
     return Math.round(elapsed / msPerYear) + " years ago";
   }
+}
+
+// like post feature
+$(document).on("click", ".likeButton", (event) => {
+  const button = $(event.target);
+  const postId = getPostIdFromElement(button);
+  if (!postId) {
+    return;
+  }
+
+  $.ajax({
+    url: `/api/posts/${postId}/like`,
+    type: "PUT",
+    success: (postData) => {
+      button.find("span").text(postData.likes.length || "");
+
+      if (postData.likes.includes(userLoggedIn._id)) {
+        button.addClass("active");
+      } else {
+        button.removeClass("active");
+      }
+    },
+  });
+});
+
+// get post id
+function getPostIdFromElement(element) {
+  const root = element.hasClass("post");
+  const rootElement = root ? element : element.closest(".post");
+  const postId = rootElement.data().id;
+
+  if (!postId) {
+    return;
+  }
+
+  return postId;
 }
