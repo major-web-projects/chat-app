@@ -1,4 +1,5 @@
 import authRoutes from "./authRoutes.js";
-import postRoutes from "./api/postRoutes.js";
+import postApiRoutes from "./api/postApiRoutes.js";
+import postRoutes from "./postRoutes.js";
 
-export default { authRoutes, postRoutes };
+export default { authRoutes, postApiRoutes, postRoutes };

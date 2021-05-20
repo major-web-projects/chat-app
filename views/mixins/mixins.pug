@@ -4,3 +4,21 @@ mixin createPostForm()
             textarea#postTextarea.form-control(rows='3', placeholder="What's happening")
         .submitButton
             button#submitPostButton.btn.btn-primary.mb-2(disabled="true") Post
+
+
+mixin createReplyModal(userLoggedIn)
+    #replyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='replyModalCenterTitle' aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#replyModalLongTitle.modal-title Modal title
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    .originalPostContainter
+                    .postFormContainer
+                        .form-group.textareaContainer
+                            textarea#replyTextarea.form-control(rows='3', placeholder="What's happening")      
+                .modal-footer
+                    button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                    button#submitReplyButton.btn.btn-primary(type='button' disabled="") Reply

@@ -22,9 +22,10 @@ app.use(session({ secret: "chat", resave: true, saveUninitialized: false }));
 
 // views
 app.use("/auth", routes.authRoutes);
+app.use("/posts", routes.postRoutes);
 
 // /api/
-app.use("/api/posts", routes.postRoutes);
+app.use("/api/posts", routes.postApiRoutes);
 
 app.get("/", authMiddleware.requireLogin, (req, res, next) => {
   const payload = {

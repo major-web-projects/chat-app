@@ -7,6 +7,9 @@
   --greyText: rgb(101, 119, 134);
   --greyButtonText: rgba(0, 0, 0, 0.34);
   --red: rgb(226, 34, 94);
+  --redBackground: rgba(226, 34, 94, 0.1);
+  --green: rgb(23, 191, 99);
+  --greenBackground: rgba(23, 191, 99, 0.1);
 }
 
 .fa {
@@ -101,6 +104,12 @@ nav a:hover {
   padding: var(--spacing);
   border-bottom: 10px solid rgb(230, 236, 240);
   flex-shrink: 0;
+}
+
+.modal .postFormContainer {
+  border: none;
+  padding: 0;
+  padding-top: var(--spacing);
 }
 
 .userImageContainer {
@@ -199,4 +208,37 @@ nav a:hover {
 
 .postButtonContainer.red button.active {
   color: var(--red);
+}
+
+.postButtonContainer.red button:hover {
+  color: var(--red);
+  background-color: var(--redBackground);
+}
+
+.postButtonContainer.green button.active {
+  color: var(--green);
+}
+
+.postButtonContainer.green button:hover {
+  color: var(--green);
+  background-color: var(--greenBackground);
+}
+
+.postActionContainer {
+  font-size: 13px;
+  color: var(--greyText);
+  margin-bottom: 5px;
+}
+
+.replyFlag {
+  margin-bottom: 5px;
+}
+
+.replyFlag a {
+  color: var(--blue);
+}
+
+.post.largeFont .postBody,
+.post.largeFont .postFooter {
+  font-size: 23px;
 }

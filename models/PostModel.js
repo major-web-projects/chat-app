@@ -23,6 +23,21 @@ const PostSchema = new Schema(
         required: true,
       },
     ],
+    repostUsers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
+    repostData: {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
+    },
+    replyTo: {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
+    },
   },
   {
     timestamps: true,
