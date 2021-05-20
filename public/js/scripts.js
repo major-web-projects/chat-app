@@ -90,6 +90,14 @@ function createPostHtml(postData, largeFont = false) {
       Replying to <a href="/profile/${replyToUserName}">@${replyToUserName}</a>
     </div>`;
   }
+
+  let deleteButton = "";
+  if (postData.postedBy._id == userLoggedIn._id) {
+    deleteButton = `<button data-id="${postData._id}" data-toggle="modal" data-target="#deletePostModal">
+    <i class="fa fa-trash"></i>
+    </button>`;
+  }
+
   return `<div class="post ${largeFontClass}" data-id="${postData._id}">
       <div class="postActionContainer">
       ${repostText}
@@ -111,6 +119,7 @@ function createPostHtml(postData, largeFont = false) {
               postData.postedBy && postData.postedBy.userName
             }</span>
             <span class="date">${date}</span>
+            ${deleteButton}
           </div>
           ${replyFlag}
           <div class="postBody">
@@ -293,3 +302,30 @@ function createPostHtmlWithReplies(results, container) {
     container.append(html);
   });
 }
+
+// Delete POST
+$("#deletePostModal").on("show.bs.modal", (event) => {
+  const button = $(event.relatedTarget);
+  const postId = getPostIdFromElement(button);
+  console.log(postId);
+  $("#deletePostButton").data("id", postId);
+
+  // $.get(`/api/posts/${postId}`, (results, status, xhr) => {
+  //   createHomePostsHtml(results.postData, $(".originalPostContainter"));
+  // });
+});
+
+//delete post /api/posts
+$("#deletePostButton").click((event) => {
+  const submitButton = $(event.target);
+  const postId = submitButton.data().id;
+  console.log(postId);
+
+  $.ajax({
+    url: `/api/posts/${postId}`,
+    type: "DELETE",
+    success: () => {
+      location.reload();
+    },
+  });
+});

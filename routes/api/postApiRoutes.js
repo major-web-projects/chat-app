@@ -189,4 +189,16 @@ router.post("/:postId/repost", async (req, res, next) => {
   }
 });
 
+// delete single post
+router.delete("/:postId", async (req, res, next) => {
+  const { postId } = req.params;
+  try {
+    const post = await PostModel.findByIdAndRemove(postId);
+    res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ errorMessage: "Server Error" });
+  }
+});
+
 export default router;

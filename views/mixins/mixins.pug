@@ -7,11 +7,11 @@ mixin createPostForm()
 
 
 mixin createReplyModal(userLoggedIn)
-    #replyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='replyModalCenterTitle' aria-hidden='true')
+    #replyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='replyModal' aria-hidden='true')
         .modal-dialog.modal-dialog-centered(role='document')
             .modal-content
                 .modal-header
-                    h5#replyModalLongTitle.modal-title Modal title
+                    h5#replyModalLongTitle.modal-title Reply
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body
@@ -22,3 +22,22 @@ mixin createReplyModal(userLoggedIn)
                 .modal-footer
                     button.btn.btn-secondary(type='button' data-dismiss='modal') Close
                     button#submitReplyButton.btn.btn-primary(type='button' disabled="") Reply
+
+
+mixin createDeleteModal()
+    #deletePostModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='deletePostModal' aria-hidden='true')
+        .modal-dialog.modal-dialog-centered(role='document')
+            .modal-content
+                .modal-header
+                    h5#deleteModalLongTitle.modal-title Delete Post?
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p You will be unable to undo this
+                .modal-footer
+                    button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                    buttons#deletePostButton.btn.btn-primary(type='button') Delete
+
+mixin createPostsModal(userLoggedIn)
+    +createReplyModal(userLoggedIn)
+    +createDeleteModal()
