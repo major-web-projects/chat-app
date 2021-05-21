@@ -23,6 +23,7 @@ app.use(session({ secret: "chat", resave: true, saveUninitialized: false }));
 // views
 app.use("/auth", routes.authRoutes);
 app.use("/posts", routes.postRoutes);
+app.use("/profile", routes.profileRoutes);
 
 // /api/
 app.use("/api/posts", routes.postApiRoutes);

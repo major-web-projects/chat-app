@@ -29,6 +29,40 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// list Post by user Id
+router.get("/byuser/:userId", async (req, res, next) => {
+  const { userId } = req.params;
+  const { replies } = req.query;
+
+  const filter = {
+    postedBy: userId,
+  };
+
+  if (replies) {
+    filter.replyTo = { $exists: replies };
+  }
+
+  try {
+    const posts = await PostModel.find(filter)
+      .populate("postedBy")
+      .populate("repostData")
+      .populate("replyTo")
+      .sort({ createdAt: "-1" })
+      .then(async (postsData) => {
+        postsData = await UserModel.populate(postsData, {
+          path: "replyTo.postedBy",
+        });
+        return await UserModel.populate(postsData, {
+          path: "repostData.postedBy",
+        });
+      });
+    res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ errorMessage: "Server Error" });
+  }
+});
+
 // get single post
 router.get("/:postId", async (req, res, next) => {
   const { postId } = req.params;
